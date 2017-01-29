@@ -1,7 +1,7 @@
 <?php
 
 $apiKey = trim(file_get_contents("./config"));
-$data =
+$dataForLabelDetection =
 '{
  "requests": [
   {
@@ -19,11 +19,29 @@ $data =
  ]
 }';
 
+$dataForOCR =
+'{
+ "requests": [
+  {
+   "features": [
+    {
+     "type": "TEXT_DETECTION"
+    }
+   ],
+   "image": {
+    "source": {
+     "gcsImageUri": "http://pcabc.ru/wv/wve546.jpg"
+    }
+   }
+  }
+ ]
+}';
+
 $opts = array('http' =>
   array(
     'method'  => 'POST',
-    'header'  => "content-type:  application/json; charset=UTF-8\r\nContent-Length: " . strlen($data) . "\r\n",
-    'content' => $data,
+    'header'  => "content-type:  application/json; charset=UTF-8\r\nContent-Length: " . strlen($dataForOCR) . "\r\n",
+    'content' => $dataForOCR,
     'timeout' => 60
   )
 );
